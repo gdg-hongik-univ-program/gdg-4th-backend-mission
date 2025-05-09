@@ -29,5 +29,6 @@ Git 자체에서의 명령이 아닌 GitHub, GitLab 또는 Bitbucket과 같은 �
 
 ## git에 대해 실습해보기  
 
+![Image](https://github.com/user-attachments/assets/b7137743-8473-4353-831a-1694fc530d5d)
 
 
