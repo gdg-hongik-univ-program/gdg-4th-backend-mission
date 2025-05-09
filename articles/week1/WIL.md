@@ -28,7 +28,21 @@ Git 자체에서의 명령이 아닌 GitHub, GitLab 또는 Bitbucket과 같은 �
 **clone** - 원격 저장소에서 로컬 저장소(로컬 컴퓨터)로 복사본을 만드는 데 사용  
 
 ## git에 대해 실습해보기  
+- 메인 1~8번 (git 기본, 다음 단계로)
+  
+ <img src=https://github.com/user-attachments/assets/b7137743-8473-4353-831a-1694fc530d5d
+ width="50%" height="50%"/>
+ 
+- 원격 4번, 6번 (push, pull)
+  
+ <img src=https://github.com/user-attachments/assets/9a9866a2-c621-45eb-a8cd-56422b01b957
+ width="50%" height="50%"/> 
+ 
+원격 **2.6번**에 해당하는 문제의 풀이는 다음과 같다
 
-![Image](https://github.com/user-attachments/assets/b7137743-8473-4353-831a-1694fc530d5d)
-
-
+```
+git fetch origin c6:main  
+git fetch origin c3:foo  
+git checkout foo  
+git merge main  
+```
