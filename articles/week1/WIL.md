@@ -35,3 +35,11 @@
 ### clone
 - 역할: 원격 저장소의 전체 내용을 로컬 환경에 복사(다운로드)합니다.
 - 사용법: git clone <저장소URL>
+
+## Git 실습 성공기록
+![메인](https://github.com/user-attachments/assets/92b55d91-ea95-41b9-9eab-5726d5440a59)
+![원격](https://github.com/user-attachments/assets/46a7368f-cf3f-43d4-9b4e-7186a3f17182)
+
+
+
+
