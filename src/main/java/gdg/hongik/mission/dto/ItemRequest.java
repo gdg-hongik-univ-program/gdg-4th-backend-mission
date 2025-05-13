@@ -1,6 +1,5 @@
 package gdg.hongik.mission.dto;
 
-// 상품 등록(관리자용)
 public class ItemRequest {
     private String name;
     private int price;

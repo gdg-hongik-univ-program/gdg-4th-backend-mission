@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * 관리자(Admin)용 컨트롤러
- */
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {

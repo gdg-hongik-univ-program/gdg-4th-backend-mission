@@ -1,6 +1,5 @@
 package gdg.hongik.mission.dto;
 
-// 재고 추가(관리자 기능)
 public class AddStockRequest {
     private String name;
     private int count;

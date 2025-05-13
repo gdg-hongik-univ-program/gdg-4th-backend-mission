@@ -17,10 +17,7 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
-    /**
-     * 상품 등록
-     * 이미 이름이 존재하면 예외 발생
-     */
+
     public void addItem(String name, int price, int stock) {
         if (itemRepository.existsByName(name)) {
             throw new IllegalArgumentException("이미 존재하는 상품입니다.");
@@ -29,24 +26,18 @@ public class ItemService {
         itemRepository.save(item);
     }
 
-    /**
-     * 상품 전체 조회
-     */
+
     public List<Item> getAllItems() {
         return itemRepository.findAll();
     }
 
-    /**
-     * 이름으로 상품 조회
-     */
+
     public Item getItemByName(String name) {
         return itemRepository.findByName(name)
                 .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
     }
 
-    /**
-     * 이름으로 상품 재고 추가
-     */
+
     public int addStock(String name, int count) {
         Item item = getItemByName(name);
         item.setStock(item.getStock() + count);
@@ -54,18 +45,14 @@ public class ItemService {
         return item.getStock();
     }
 
-    /**
-     * 여러 상품 삭제 (이름 기준)
-     */
+
     public void deleteItems(List<String> names) {
         for (String name : names) {
             itemRepository.deleteByName(name);
         }
     }
 
-    /**
-     * 상품 구매 (여러 상품 한 번에)
-     */
+
     public int purchaseItems(List<PurchaseItem> items) {
         int totalPrice = 0;
         for (PurchaseItem purchase : items) {
@@ -80,12 +67,10 @@ public class ItemService {
         return totalPrice;
     }
 
-    // (구매용 내부 DTO, 나중에 외부 DTO로 대체해도 됩니다)
     public static class PurchaseItem {
         private String name;
         private int count;
 
-        // 생성자/Getter/Setter
         public PurchaseItem(String name, int count) {
             this.name = name;
             this.count = count;
