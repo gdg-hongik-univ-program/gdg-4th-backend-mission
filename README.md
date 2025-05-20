@@ -4,3 +4,5 @@
 프로젝트 진행을 위해 필요한 지식과 경험을 쌓습니다.  
 
 * [1주차 미션 명세 보기](articles/assignment_spec/week1/spec.md)
+* [2주차 미션 명세 보기](articles/assignment_spec/week2/spec.md)
+
