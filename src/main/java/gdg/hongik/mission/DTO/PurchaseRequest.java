@@ -1,4 +1,4 @@
-package gdg.hongik.mission.dto;
+package gdg.hongik.mission.DTO;
 
 import gdg.hongik.mission.entity.User.Role;
 import lombok.*;
