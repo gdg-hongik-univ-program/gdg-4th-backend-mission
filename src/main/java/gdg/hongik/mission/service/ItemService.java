@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * 상품 관련 비즈니스 로직 처리 서비스 클래스
+ * 상품 등록, 조회, 재고 추가, 삭제, 구매 기능을 포함함
+ */
+
 @Service
 public class ItemService {
 
@@ -17,11 +22,27 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
+    /**
+     * 이름으로 상품 조회
+     * 
+     * @param name 조회할 상품 이름
+     * @return 상품 DTO
+     */
+
     public ItemDto findItem(String name) {
         Item item = itemRepository.findByName(name)
                 .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다."));
         return new ItemDto(item.getId(), item.getName(), item.getPrice(), item.getStock());
     }
+
+    /**
+     * 새 상품 등록
+     * 
+     * @param name 상품 이름
+     * @param price 가격
+     * @param stock 재고 수
+     * @param position 요청자 직책책
+     */
 
     public void registerItem(String name, int price, int stock, String position) {
         if (!"ADMIN".equalsIgnoreCase(position)) {
@@ -32,6 +53,13 @@ public class ItemService {
         }
         itemRepository.save(new Item(null, name, price, stock));
     }
+    /**
+     * 재고 추가
+     * @param name 상품 이름
+     * @param count 추가 수량
+     * @param position 요청자 직책
+     * @return 업데이트된 상품품
+     */
 
     public ItemDto addStock(String name, int count, String position) {
         if (!"ADMIN".equalsIgnoreCase(position)) {
@@ -43,6 +71,13 @@ public class ItemService {
         return new ItemDto(item.getId(), item.getName(), item.getPrice(), item.getStock());
     }
 
+    /**
+     * 여러 상품 삭제
+     * @param names 삭제할 상품 이름 리스트
+     * @param position 요청자 직책
+     * @return 삭제 후 남은 상품품
+     */
+
     public List<ItemDto> deleteItems(List<String> names, String position) {
         if (!"ADMIN".equalsIgnoreCase(position)) {
             throw new IllegalArgumentException("관리자만 삭제할 수 있습니다.");
@@ -53,6 +88,13 @@ public class ItemService {
                 .map(item -> new ItemDto(item.getId(), item.getName(), item.getPrice(), item.getStock()))
                 .collect(Collectors.toList());
     }
+
+    /**
+     * 상품 구매를 처리합니다.
+     * 
+     * @param items 구매 요청 목록(상품 이름, 수량 포함)
+     * @return 총 가격 및 구매 상세 목록
+     */
 
     public Map<String, Object> purchaseItems(List<Map<String, Object>> items) {
         int totalPrice = 0;
