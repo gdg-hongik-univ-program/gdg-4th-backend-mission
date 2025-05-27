@@ -45,6 +45,10 @@ public class ItemUserService {
         .sorted(Comparator.comparingInt(item -> order.getOrDefault(item.getName(), Integer.MAX_VALUE))).toList();
     }
 
+    public List<Item> findAllItems() {
+        return itemRepository.findAll();
+    }
+
     public Item findItemByName(String name) {
         Optional<Item> item = itemRepository.findItemByName(name);
         if(item.isPresent()) {
