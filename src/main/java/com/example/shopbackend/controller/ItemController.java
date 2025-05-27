@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
@@ -44,7 +43,7 @@ public class ItemController {
     @Operation(
             summary = "상품 등록 (관리자)",
             description = "position이 'ADMIN'인 사용자가 새로운 상품을 등록합니다.",
-            requestBody = @RequestBody(
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     content = @Content(
                             mediaType = "application/json",
@@ -126,7 +125,7 @@ public class ItemController {
     @Operation(
             summary = "재고 추가 (관리자)",
             description = "기존 상품에 재고를 추가합니다.",
-            requestBody = @RequestBody(
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     content = @Content(
                             mediaType = "application/json",
@@ -171,7 +170,7 @@ public class ItemController {
     @Operation(
             summary = "상품 삭제 (관리자)",
             description = "입력된 상품 목록을 삭제합니다.",
-            requestBody = @RequestBody(
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     content = @Content(
                             mediaType = "application/json",
@@ -212,7 +211,7 @@ public class ItemController {
     @Operation(
             summary = "상품 구매",
             description = "여러 상품을 동시에 구매합니다.",
-            requestBody = @RequestBody(
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     content = @Content(
                             mediaType = "application/json",
