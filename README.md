@@ -6,3 +6,5 @@
 * [1주차 미션 명세 보기](articles/assignment_spec/week1/spec.md)
 * [2주차 미션 명세 보기](articles/assignment_spec/week2/spec.md)
 * [3주차 미션(상) 명세 보기](articles/assignment_spec/week3/spec_1.md)
+* [3주차 미션(하) 명세 보기](articles/assignment_spec/week3/spec_2.md)
+
