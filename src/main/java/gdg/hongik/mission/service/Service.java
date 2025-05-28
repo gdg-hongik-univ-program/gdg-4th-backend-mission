@@ -1,15 +1,17 @@
 package gdg.hongik.mission.service;
 
+import gdg.hongik.mission.dto.*;
 import gdg.hongik.mission.model.Item;
+import gdg.hongik.mission.purchase.PurchaseItem;
 import gdg.hongik.mission.purchase.PurchaseRecord;
 import gdg.hongik.mission.reservation.Reservation;
 import jakarta.annotation.PostConstruct;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import gdg.hongik.mission.model.User
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -40,15 +42,6 @@ public class InventoryService {
         return itm;
     }
 
-    public SearchResponse findItem(String searchName) {
-        Item item = getItem(searchName);
-        SearchResponse resp = new SearchResponse();
-        resp.setId(item.getId());
-        resp.setName(item.getName());
-        resp.setPrice(item.getPrice());
-        resp.setStock(item.getStock());
-        return resp;
-    }
 
     public synchronized PurchaseResponse purchase(String consumer, List<ItemCount> order) {
         int total = 0;
