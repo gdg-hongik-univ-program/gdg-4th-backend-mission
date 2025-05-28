@@ -1,0 +1,12 @@
+{
+  "items" : [
+    {
+      "name" : "apple",
+      "count" : 5
+    },
+    {
+      "name": "banana",
+      "count": 10
+    }
+  ]
+}
