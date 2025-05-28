@@ -18,6 +18,8 @@ import gdg.hongik.mission.item.sevice.ItemUserService;
 import gdg.hongik.mission.user.domain.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +53,10 @@ public class ItemController {
 
     @PostMapping("buy")
     public ResponseEntity<BuyResDTO> buyItem(@RequestBody BuyReqDTO req) {
+        Logger logger = LoggerFactory.getLogger(getClass());
+        logger.info("▶ BuyReqDTO: {}", req);
+        logger.info("▶ domainOrders: {}", req.toDomainOrders());
+
         Cart cart = new Cart(req.toDomainOrders());
         List<Item> receipt = itemUserService.buyItems(cart);
         int totalPrice = receipt.stream()

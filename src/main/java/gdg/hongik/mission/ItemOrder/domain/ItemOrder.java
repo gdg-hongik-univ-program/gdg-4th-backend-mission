@@ -14,6 +14,8 @@ public class ItemOrder {
         if (quantity <= 0) {
             throw new CustomException(ErrorCode.INPUT_MUST_BE_GREATER_THAN_ZERO);
         }
+        this.name = name;
+        this.quantity = quantity;
     }
 
     public void decreaseQuantity(int quantity) {

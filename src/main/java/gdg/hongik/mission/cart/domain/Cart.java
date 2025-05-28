@@ -1,6 +1,7 @@
 package gdg.hongik.mission.cart.domain;
 
 import gdg.hongik.mission.ItemOrder.domain.ItemOrder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +20,7 @@ public class Cart {
     }
 
     public List<String> getItemNames() {
-        List<String> names = new java.util.ArrayList<>();
-        this.getItemOrders().forEach((name, itemOrder) -> {names.add(name);});
-        return names;
+        return new ArrayList<>(itemOrders.keySet());
     }
 
 

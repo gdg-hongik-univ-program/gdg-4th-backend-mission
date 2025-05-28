@@ -9,7 +9,7 @@ public record BuyResDTO(int totalPrice, List<ItemDTO> items) {
     public static BuyResDTO from(int totalPrice, List<Item> Items) {
         List<ItemDTO> itemDTOs = Items.stream()
                 .map(item -> new ItemDTO(item.getName(),
-                        item.calculatePrice(item.getQuantity()),
+                        item.getPrice(),
                         item.getQuantity()))
                 .toList();
         return new BuyResDTO(totalPrice, itemDTOs);
