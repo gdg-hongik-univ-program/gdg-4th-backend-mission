@@ -16,11 +16,14 @@ import java.util.stream.Collectors;
  * 상품 관련 비즈니스 로직을 처리하는 서비스 클래스
  */
 @Service
-@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ItemService {
 
     private final ItemRepository itemRepository;
+
+    public ItemService(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     /**
      * 새로운 상품을 생성합니다
@@ -68,7 +71,7 @@ public class ItemService {
 
     /**
      * 상품명으로 특정 상품을 조회합니다
-     * 
+     22* 
      * @param name 조회할 상품명
      * @return 조회된 상품 정보
      * @throws IllegalArgumentException 존재하지 않는 상품인 경우
