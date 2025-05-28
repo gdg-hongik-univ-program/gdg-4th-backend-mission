@@ -211,7 +211,7 @@ OUTPUT은 존재하지 않는다.
     "data": [
         {
             "name": "지디지",
-            "items": [
+            "s": [
                 {
                     "name": "apple",
                     "count": 5
@@ -225,7 +225,7 @@ OUTPUT은 존재하지 않는다.
         },
         {
             "name": "김와우",
-            "items": [
+            "s": [
                 {
                     "name": "mango",
                     "count": 20
@@ -256,7 +256,7 @@ OUTPUT은 존재하지 않는다.
 {
     "record": [
         {
-            "items": [
+            "s": [
                 {
                     "name": "apple",
                     "count": 5
@@ -276,7 +276,7 @@ OUTPUT은 존재하지 않는다.
             ]
         },
         {
-            "items": [
+            "s": [
                 {
                     "name": "apple",
                     "count": 0
@@ -318,7 +318,7 @@ OUTPUT은 존재하지 않는다.
 ```JSON
 // OUTPUT
 {
-    "items": [
+    "s": [
         {
             "name": "apple",
             "count": 30,
