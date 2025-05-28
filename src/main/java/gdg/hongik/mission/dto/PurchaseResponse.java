@@ -11,7 +11,7 @@ public class PurchaseResponse {
         this.totalPrice = totalPrice;
         this.items = items;
     }
-    public int getTotalPrice() { return totalPrice; }
+        public int getTotalPrice() { return totalPrice; }
     public void setTotalPrice(int totalPrice) { this.totalPrice = totalPrice; }
     public List<PurchasedItem> getItems() { return items; }
     public void setItems(List<PurchasedItem> items) { this.items = items; }

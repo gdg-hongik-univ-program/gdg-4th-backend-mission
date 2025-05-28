@@ -2,6 +2,7 @@ package gdg.hongik.mission.service;
 
 import gdg.hongik.mission.domain.Item;
 import gdg.hongik.mission.repository.ItemRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +47,7 @@ public class ItemService {
     }
 
 
+    @Transactional
     public void deleteItems(List<String> names) {
         for (String name : names) {
             itemRepository.deleteByName(name);
@@ -53,6 +55,7 @@ public class ItemService {
     }
 
 
+    @Transactional
     public int purchaseItems(List<PurchaseItem> items) {
         int totalPrice = 0;
         for (PurchaseItem purchase : items) {

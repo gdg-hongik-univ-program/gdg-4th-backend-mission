@@ -22,7 +22,6 @@ public class Item {
 
     @Column(nullable = false)
     private int stock;   // 상품 재고(수량)
-
     public Item() {}
 
     public Item(String name, int price, int stock) {
