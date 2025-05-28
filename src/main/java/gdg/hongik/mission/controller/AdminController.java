@@ -1,6 +1,7 @@
 package gdg.hongik.mission.controller;
 
 import gdg.hongik.mission.model.Position;
+import gdg.hongik.mission.service.InventoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,14 +22,14 @@ public class AdminController {
     }
 
     // 상품 등록
-    @PostMapping("/s")
+    @PostMapping("/register")
     public void register(@RequestBody RegisterRequest req) {
         requireAdmin(req.getPosition());
-        service.addNewProduct(req.getName(), req.getPrice(), req.getStock());
+        service.addNewItem(req.getName(), req.getPrice(), req.getStock());
     }
 
     // 재고 추가
-    @PatchMapping("/items/{name}/stock")
+    @PatchMapping("stock")
     public AddStockResponse addStock(
             @PathVariable String name,
             @RequestBody AddStockRequest req

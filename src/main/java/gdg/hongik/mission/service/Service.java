@@ -1,11 +1,13 @@
 package gdg.hongik.mission.service;
 
 import gdg.hongik.mission.model.Item;
+import gdg.hongik.mission.purchase.PurchaseRecord;
 import gdg.hongik.mission.reservation.Reservation;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
-
+import gdg.hongik.mission.model.User
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -52,12 +54,12 @@ public class InventoryService {
         int total = 0;
         List<PurchaseItem> bought = new ArrayList<>();
         for (ItemCount ic : order) {
-            Item itm = getItem(ic.getName());
-            if (itm.getStock() < ic.getCount()) {
+            Item item = getItem(ic.getName());
+            if (item.getStock() < ic.getCount()) {
                 throw new IllegalArgumentException("Insufficient stock: " + ic.getName());
             }
-            itm.setStock(itm.getStock() - ic.getCount());
-            int cost = itm.getPrice() * ic.getCount();
+            item.setStock(item.getStock() - ic.getCount());
+            int cost = item.getPrice() * ic.getCount();
             total += cost;
             bought.add(new PurchaseItem(ic.getName(), ic.getCount(), cost));
         }
