@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import lombok.Getter;
 
 @Getter
@@ -24,20 +27,13 @@ public class Cart {
     }
 
 
-    public void addItem(ItemOrder itemOrder) {
-        itemOrders.put(itemOrder.getName(), itemOrder);
-    }
-    public void removeItem(String name) {
-        itemOrders.remove(name);
-    }
-    public void decreaseQuantity(String name, int quantity) {
-        if(quantity <= 0) { throw new IllegalArgumentException("quantity must be greater than 0");}
-
-        itemOrders.get(name).decreaseQuantity(quantity);
-    }
-    public void increaseQuantity(String name, int quantity) {
-        if(quantity <= 0) { throw new IllegalArgumentException("quantity must be greater than 0");}
-
-        itemOrders.get(name).addQuantity(quantity);
-    }
+   public Map<String, Integer> getSortOrders() {
+       List<String> names = this.getItemNames();
+       return IntStream.range(0, names.size())
+               .boxed()
+               .collect(Collectors.toMap(names::get, Function.identity()));
+   }
+   public int getQuantity(String itemName) {
+       return itemOrders.get(itemName).getQuantity();
+   }
 }

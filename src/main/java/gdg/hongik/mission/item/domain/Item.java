@@ -28,12 +28,14 @@ public class Item {
     private int price;
 
     public void decreaseQuantity(int quantity) {
-        if(quantity <= 0) { throw new CustomException(ErrorCode.INPUT_MUST_BE_GREATER_THAN_ZERO);}
         this.quantity -= quantity;
     }
     public void increaseQuantity(int quantity) {
-        if(quantity <= 0) { throw new CustomException(ErrorCode.INPUT_MUST_BE_GREATER_THAN_ZERO); }
         this.quantity += quantity;
+    }
+    public boolean checkQuantity(int quantity) {
+        if(quantity <= 0) { throw new CustomException(ErrorCode.INPUT_MUST_BE_GREATER_THAN_ZERO);}
+        return this.quantity >= quantity;
     }
 
     public int calculatePrice(int quantity) {

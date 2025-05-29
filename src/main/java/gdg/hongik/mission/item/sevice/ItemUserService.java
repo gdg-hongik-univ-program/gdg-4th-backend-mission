@@ -28,10 +28,7 @@ public class ItemUserService {
     @Transactional(readOnly = false)
     public List<Item> buyItems(Cart cart) {
         List<String> names = cart.getItemNames();
-        Map<String, Integer> order = IntStream.range(0, names.size())
-                .boxed()
-                .collect(Collectors.toMap(names::get, Function.identity()));
-
+        Map<String, Integer> order = cart.getSortOrders();
         List<Item> stocks = itemRepository.findItemsByNames(names);
 
         Logger logger = org.slf4j.LoggerFactory.getLogger(ItemUserService.class);
@@ -42,16 +39,15 @@ public class ItemUserService {
         logger.info("=============== buyItems order: {}", order);
 
         return stocks.stream().map(item -> {
-            int quantity = cart.getItemOrder(item.getName()).getQuantity();
+            int desireQuantity = cart.getQuantity(item.getName());
 
-            logger.info("=============== buyItems stream: {}, {}", item.getName(), quantity);
+            logger.info("=============== buyItems stream: {}, {}", item.getName(), desireQuantity);
 
-            if(quantity > item.getQuantity()) {
+            if(! item.checkQuantity(desireQuantity)) {
                 throw new CustomException(INVALID_INPUT, "quantity must be less than or equal to the stock quantity");
             }
-
-            item.decreaseQuantity(quantity);
-            return new Item(item.getName(), quantity, item.getPrice());
+            item.decreaseQuantity(desireQuantity);
+            return new Item(item.getName(), desireQuantity, item.getPrice());
         })
         .sorted(Comparator.comparingInt(item -> order.getOrDefault(item.getName(), Integer.MAX_VALUE))).toList();
     }
