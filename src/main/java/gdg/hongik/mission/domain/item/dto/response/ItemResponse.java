@@ -1,41 +1,43 @@
 package gdg.hongik.mission.domain.item.dto.response;
 
 import gdg.hongik.mission.domain.item.entity.Item;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 
 /**
- * 상품 응답 DTO 클래스
+ * 상품 응답 DTO
  */
+@Schema(description = "상품 응답")
 @Getter
 public class ItemResponse {
     
-    /** 상품 ID */
+    @Schema(description = "상품 ID", example = "1")
     private final Long id;
     
-    /** 상품명 */
-    private final String name;
+    @Schema(description = "상품명", example = "노트북")
+    private final String itemName;
     
-    /** 상품 가격 */
+    @Schema(description = "상품 가격", example = "1000000")
     private final int price;
     
-    /** 상품 재고 */
-    private final int stock;
+    @Schema(description = "상품 재고", example = "10")
+    private final int quantity;
 
     /**
      * ItemResponse 생성자
      * 
      * @param id 상품 ID
-     * @param name 상품명
+     * @param itemName 상품명
      * @param price 상품 가격
-     * @param stock 상품 재고
+     * @param quantity 상품 재고
      */
     @Builder
-    public ItemResponse(Long id, String name, int price, int stock) {
+    public ItemResponse(Long id, String itemName, int price, int quantity) {
         this.id = id;
-        this.name = name;
+        this.itemName = itemName;
         this.price = price;
-        this.stock = stock;
+        this.quantity = quantity;
     }
 
     /**
@@ -47,9 +49,9 @@ public class ItemResponse {
     public static ItemResponse of(Item item) {
         return ItemResponse.builder()
                 .id(item.getId())
-                .name(item.getName())
+                .itemName(item.getName())
                 .price(item.getPrice())
-                .stock(item.getStock())
+                .quantity(item.getStock())
                 .build();
     }
 } 
