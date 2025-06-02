@@ -1,0 +1,7 @@
+{
+  "position": "ADMIN",
+  "items": [
+    {"name": "apple"},
+    {"name": "banana"}
+  ]
+}
