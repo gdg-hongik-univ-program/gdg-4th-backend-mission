@@ -3,10 +3,13 @@ package gdg.hongik.mission.DTO;
 import gdg.hongik.mission.entity.User.Role;
 import lombok.*;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class RegisterItemRequest {
-    private String name;
-    private int price;
-    private int stock;
-    private Role position;
-}
+/**
+ * 상품 등록 요청 정보를 담는 DTO
+ * 관리자만 사용할 수 있다.
+ */
+public record RegisterItemRequest(
+        String name,
+        int price,
+        int stock,
+        Role position
+) { }

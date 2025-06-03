@@ -1,6 +1,10 @@
+
+
+// 18. Controller - ItemController.java (JavaDoc & Swagger 포함 + record DTO 반영)
 package gdg.hongik.mission.controller;
 
 import gdg.hongik.mission.DTO.PurchaseRequest;
+import gdg.hongik.mission.DTO.PurchaseRequest.ItemOrder;
 import gdg.hongik.mission.DTO.RegisterItemRequest;
 import gdg.hongik.mission.entity.Item;
 import gdg.hongik.mission.entity.User;
@@ -8,11 +12,16 @@ import gdg.hongik.mission.service.AdminItemService;
 import gdg.hongik.mission.service.ConsumerItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
+        import java.util.*;
 
+/**
+ * 상품 관련 요청을 처리하는 컨트롤러입니다.
+ * 역할에 따라 상품 검색, 등록, 삭제, 구매 등의 기능을 제공합니다.
+ */
 @RestController
 @RequestMapping("/item")
 public class ItemController {
+
     private final AdminItemService adminService;
     private final ConsumerItemService consumerService;
 
@@ -65,8 +74,8 @@ public class ItemController {
     @Operation(summary = "상품 삭제", description = "관리자가 상품을 삭제합니다.")
     @PostMapping("/delete")
     public Map<String, Object> delete(@RequestBody Map<String, Object> body) {
-        List<String> names = ((List<Map<String, String>>) body.get("items")).stream()
-                .map(m -> m.get("name")).toList();
+        List<String> names = ((List<Map<String, String>>) body.get("items"))
+                .stream().map(m -> m.get("name")).toList();
         String roleStr = (String) body.get("position");
         List<Map<String, Object>> result = adminService.deleteItems(names, User.Role.valueOf(roleStr));
         return Map.of("items", result);
