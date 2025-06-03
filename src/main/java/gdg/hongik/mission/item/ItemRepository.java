@@ -1,66 +1,33 @@
 package gdg.hongik.mission.item;
 
-import org.springframework.stereotype.Repository;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
-@Repository
-public class ItemRepository {
-    private final Map<String, Item> items = new HashMap<>();
-    private int idCounter = 1;
+/**
+ * Spring Data JPA를 통해 CRUD 및 사용자 정의 쿼리 처리
+ */
+public interface ItemRepository extends JpaRepository<Item, Long> {
 
     /**
-     * 아이템의 이름으로 아이템을 검색합니다.
+     * 상품 이름으로 Item을 조회합니다.
      *
-     * @param name 아이템 이름
-     * @return 아이템이 존재하면 아이템 객체를, 그렇지 않으면 NULL을 반환합니다.
+     * @param name 조회할 상품 이름
+     * @return 이름에 해당하는 Item이 있으면 Optional로 반환, 없으면 빈 Optional 반환
      */
-    public Optional<Item> findByName(String name) {     // 아이템 이름으로 검색
-        return Optional.ofNullable(items.get(name));
-    }
+    Optional<Item> findByName(String name);
 
     /**
-     * 새로운 아이템을 등록합니다.
+     * 상품 이름으로 존재 여부를 확인합니다.
      *
-     * @param name 등록할 아이템의 이름
-     * @param price 등록할 아이템의 가격
-     * @param stock 등록할 아이템의 개수
-     * @return 등록한 아아템 객체를 반환합니다.
+     * @param name 조회할 상품의 이름
+     * @return 해당 이름의 Item이 존재하면 true, 아니면 false
      */
-    public Item save(String name,int price, int stock) {
-        Item item = new Item(idCounter++, name, price, stock);
-        items.put(item.getName(), item);
-        return item;
-    }
+    boolean existsByName(String name);
 
     /**
-     * 이름을 통해 아이템을 삭제합니다.
+     * 상품 이름으로 Item을 삭제합니다.
      *
-     * @param name 삭제할 아이템의 이름
+     * @param name 삭제할 상품 이름
      */
-    public void deleteByName(String name) {
-        items.remove(name);
-    }
-
-    /**
-     * 등록되어있는 모든 아이템을 보여줍니다.
-     *
-     * @return 등록되어있는 모든 아이템 객체를 반환합니다.
-     */
-    public Collection<Item> findAll() {
-        return items.values();
-    }
-
-    /**
-     * 아이템이 존재하는지 여부를 알려줍니다.
-     *
-     * @param name 찾고자하는 아이템의 이름
-     * @return 아이템이 존재하면 true, 그렇지 않으면 false를 반환합니다.
-     */
-    public boolean existsByName(String name) {
-        return items.containsKey(name);
-    }
+    void deleteByName(String name);
 }

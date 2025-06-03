@@ -1,27 +1,18 @@
 package gdg.hongik.mission.user;
 
-import org.springframework.stereotype.Repository;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
-@Repository
-public class UserRepository {
+/**
+ * 사용자 정보를 관리하는 JPA Repository 인터페이스입니다.
+ */
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    private final Map<String, User> users = new HashMap<>();    // 요청을 이름과 포지션으로 구별해야 하므로
-    private Long idCounter = 1L;
-
-    public User save(String name, String position) {
-        if(users.containsKey(name)) return users.get(name);
-        User user = new User(idCounter++, name, position);
-        users.put(name, user);
-        return user;
-    }
-
-    public Optional<User> findByName(String name) {
-        return Optional.ofNullable(users.get(name));    //NULL 반환 가능성
-    }
-
-
+    /**
+     * 사용자 이름으로 사용자 정보를 조회합니다.
+     *
+     * @param name 사용자 이름
+     * @return 사용자 정보 (Optional)
+     */
+    Optional<User> findByName(String name);
 }
