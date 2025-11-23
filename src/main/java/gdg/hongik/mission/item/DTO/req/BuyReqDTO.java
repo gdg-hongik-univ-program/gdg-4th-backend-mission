@@ -3,7 +3,7 @@ package gdg.hongik.mission.item.DTO.req;
 import gdg.hongik.mission.ItemOrder.domain.ItemOrder;
 import java.util.List;
 
-public record BuyReqDTO(String userName, String position, List<ItemOrderReq> items) {
+public record BuyReqDTO(List<ItemOrderReq> items) {
     public record ItemOrderReq(
             String itemName,
             int count

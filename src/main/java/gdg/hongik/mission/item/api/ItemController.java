@@ -15,7 +15,6 @@ import gdg.hongik.mission.item.DTO.res.SearchResDTO;
 import gdg.hongik.mission.item.domain.Item;
 import gdg.hongik.mission.item.sevice.ItemAdminService;
 import gdg.hongik.mission.item.sevice.ItemUserService;
-import gdg.hongik.mission.user.domain.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -54,8 +53,8 @@ public class ItemController {
     @PostMapping("buy")
     public ResponseEntity<BuyResDTO> buyItem(@RequestBody BuyReqDTO req) {
         Logger logger = LoggerFactory.getLogger(getClass());
-        logger.info("▶ BuyReqDTO: {}", req);
-        logger.info("▶ domainOrders: {}", req.toDomainOrders());
+        logger.info("BuyReqDTO: {}", req);
+        logger.info("domainOrders: {}", req.toDomainOrders());
 
         Cart cart = new Cart(req.toDomainOrders());
         List<Item> receipt = itemUserService.buyItems(cart);
@@ -68,27 +67,24 @@ public class ItemController {
     // admin API
     @PostMapping("register")
     public ResponseEntity<Void> registerItem(@RequestBody RegisterReqDTO req) {
-        User user = new User(req.userName(), req.position());
-        itemAdminService.registerItem(new Item(req.itemName(), req.stock(), req.price()), user);
+        itemAdminService.registerItem(new Item(req.itemName(), req.stock(), req.price()));
 
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("increase")
     public ResponseEntity<IncreaseResDTO> increaseItem(@RequestBody IncreaseReqDTO req) {
-        User user = new User(req.userName(), req.position());
-        Item item = itemAdminService.increaseItem(req.itemName(), req.count(), user);
+        Item item = itemAdminService.increaseItem(req.itemName(), req.count());
 
         return ResponseEntity.ok(new IncreaseResDTO(item.getName(), item.getQuantity()));
     }
 
     @PostMapping("delete")
     public ResponseEntity<DeleteResDTO> deleteItem(@RequestBody DeleteReqDTO req) {
-        User user = new User(req.userName(), req.position());
         List<String> names = req.items().stream().map(ItemReq::itemName).toList();
-        itemAdminService.deleteItems(names, user);
+        itemAdminService.deleteItems(names);
 
-        List<Item> allItems = itemAdminService.findAllItems(user);
+        List<Item> allItems = itemAdminService.findAllItems();
         List<ItemResDTO> items = allItems.stream().map(item -> new ItemResDTO(item.getName(), item.getQuantity())).toList();
 
         return ResponseEntity.ok(new DeleteResDTO(items));
