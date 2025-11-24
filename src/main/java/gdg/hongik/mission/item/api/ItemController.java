@@ -35,11 +35,16 @@ public class ItemController {
     private final ItemAdminService itemAdminService;
     private final ItemUserService itemUserService;
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     // User API
     @GetMapping()
     public ResponseEntity<List<SearchResDTO>> getItems() {
         List<SearchResDTO> items = itemUserService.findAllItems().stream()
         .map(SearchResDTO::new).toList();
+
+        logger.info("============== get Items : {}", items);
+
         return ResponseEntity.ok(items);
     }
 
@@ -47,14 +52,16 @@ public class ItemController {
     public ResponseEntity<SearchResDTO> getItems(@RequestBody SearchReqDTO req) {
         String name = req.itemName();
         Item item = itemUserService.findItemByName(name);
+
+        logger.info("============== post Items: {}", item);
+
         return ResponseEntity.ok(new SearchResDTO(item));
     }
 
     @PostMapping("buy")
     public ResponseEntity<BuyResDTO> buyItem(@RequestBody BuyReqDTO req) {
-        Logger logger = LoggerFactory.getLogger(getClass());
-        logger.info("BuyReqDTO: {}", req);
-        logger.info("domainOrders: {}", req.toDomainOrders());
+        logger.info("============== BuyReqDTO: {}", req);
+        logger.info("============== domainOrders: {}", req.toDomainOrders());
 
         Cart cart = new Cart(req.toDomainOrders());
         List<Item> receipt = itemUserService.buyItems(cart);
@@ -69,12 +76,16 @@ public class ItemController {
     public ResponseEntity<Void> registerItem(@RequestBody RegisterReqDTO req) {
         itemAdminService.registerItem(new Item(req.itemName(), req.stock(), req.price()));
 
+        logger.info("============== register Items: {}", req);
+
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("increase")
     public ResponseEntity<IncreaseResDTO> increaseItem(@RequestBody IncreaseReqDTO req) {
         Item item = itemAdminService.increaseItem(req.itemName(), req.count());
+
+        logger.info("============== increase Items: {}", item);
 
         return ResponseEntity.ok(new IncreaseResDTO(item.getName(), item.getQuantity()));
     }
@@ -86,6 +97,8 @@ public class ItemController {
 
         List<Item> allItems = itemAdminService.findAllItems();
         List<ItemResDTO> items = allItems.stream().map(item -> new ItemResDTO(item.getName(), item.getQuantity())).toList();
+
+        logger.info("============== all Items after delete: {}", items);
 
         return ResponseEntity.ok(new DeleteResDTO(items));
     }
